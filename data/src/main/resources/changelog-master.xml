@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="1" author="bachilo">
+        <sql>
+            CREATE TABLE IF NOT EXISTS T_DELIVERY_TYPE (
+            ID INT NOT NULL,
+            DELIVERY_NAME VARCHAR(45) NULL,
+            PRIMARY KEY (ID)
+            );
+        </sql>
+    </changeSet>
+
+    <changeSet id="2" author="bachilo">
+        <sql>
+            CREATE TABLE IF NOT EXISTS T_PRODUCT_SPECIFICATION (
+            id int NOT NULL,
+            product_name varchar(150) NOT NULL,
+            product_price decimal(10,2) DEFAULT NULL,
+            PRIMARY KEY (ID));
+        </sql>
+    </changeSet>
+
+    <changeSet id="3" author="bachilo">
+        <sql>
+            INSERT INTO T_PRODUCT_SPECIFICATION VALUES (1, 'Apple iPhone 13', 4999.99);
+            INSERT INTO T_PRODUCT_SPECIFICATION VALUES (2, 'Apple iPhone 13 Pro', 5999.99);
+            INSERT INTO T_PRODUCT_SPECIFICATION VALUES (3, 'Apple iPhone 14', 6999.99);
+            INSERT INTO T_PRODUCT_SPECIFICATION VALUES (4, 'Apple iPhone 14 Pro', 7999.99);
+            INSERT INTO T_PRODUCT_SPECIFICATION VALUES (5, 'Apple iPhone 15', 8999.99);
+            INSERT INTO T_PRODUCT_SPECIFICATION VALUES (6, 'Apple iPhone 15 Pro', 9999.99);
+            INSERT INTO T_PRODUCT_SPECIFICATION VALUES (7, 'Samsung Galaxy A53', 4999.99);
+            INSERT INTO T_PRODUCT_SPECIFICATION VALUES (8, 'Motorola M70', 2999.99);
+            INSERT INTO T_PRODUCT_SPECIFICATION VALUES (9, 'Huawei P30 Lite', 3999.99);
+            INSERT INTO T_PRODUCT_SPECIFICATION VALUES (10, 'Honor 10', 1999.99);
+            INSERT INTO T_PRODUCT_SPECIFICATION VALUES (11, 'Honor 20', 2999.99);
+            INSERT INTO T_PRODUCT_SPECIFICATION VALUES (12, 'Honor 30', 3999.99);
+            INSERT INTO T_PRODUCT_SPECIFICATION VALUES (13, 'Vivo 1018', 4999.99);
+            INSERT INTO T_PRODUCT_SPECIFICATION VALUES (14, 'Mi Redmi 9', 8999.99);
+        </sql>
+    </changeSet>
+
+    <changeSet id="4" author="bachilo">
+        <sql>
+            CREATE TABLE IF NOT EXISTS T_PERSON (
+            PERSON_ID VARCHAR(255) NOT NULL,
+            DATE_OF_BIRTH DATETIME(6),
+            FIRST_NAME VARCHAR(255),
+            LAST_NAME VARCHAR(255),
+            PRIMARY KEY (PERSON_ID)
+            );
+        </sql>
+    </changeSet>
+
+    <changeSet id="5" author="bachilo">
+        <sql>
+            CREATE TABLE T_PERSON_DETAILS (
+            ID VARCHAR(255) NOT NULL,
+            MOBILE_NUMBER VARCHAR(255) DEFAULT NULL,
+            PRIMARY KEY (ID)
+            );
+            ALTER TABLE T_PERSON
+            ADD COLUMN PERSON_DETAILS_ID VARCHAR(255) NULL AFTER LAST_NAME;
+            ALTER TABLE T_PERSON
+            ADD CONSTRAINT FK_T_PERSON_DETAILS_ID FOREIGN KEY (PERSON_DETAILS_ID)
+            REFERENCES T_PERSON_DETAILS (ID);
+        </sql>
+    </changeSet>
+
+    <changeSet id="6" author="bachilo">
+        <sql>
+            CREATE TABLE T_PROMO (
+            ID INT NOT NULL,
+            END_DATE DATETIME(6) DEFAULT NULL,
+            PROMO_NAME VARCHAR(150) NOT NULL,
+            START_DATE DATETIME(6) DEFAULT NULL,
+            PRIMARY KEY (ID)
+            );
+        </sql>
+    </changeSet>
+
+    <changeSet id="7" author="bachilo">
+        <sql>
+            CREATE TABLE T_PRODUCT_PROMO (
+            PROMO_ID INT NOT NULL,
+            PRODUCT_ID INT NOT NULL,
+            KEY FK_T_PRODUCT_SPECIFICATION_ID (PRODUCT_ID),
+            KEY FK_T_PROMO_ID (PROMO_ID),
+            CONSTRAINT FK_T_PRODUCT_SPECIFICATION_ID FOREIGN KEY (PRODUCT_ID)
+            REFERENCES T_PRODUCT_SPECIFICATION (ID),
+            CONSTRAINT FK_T_PROMO_ID FOREIGN KEY (PROMO_ID)
+            REFERENCES T_PROMO (ID)
+            );
+        </sql>
+    </changeSet>
+
+    <changeSet id="8" author="bachilo">
+        <sql>
+            CREATE TABLE T_TARGET_GROUP (
+            ID VARCHAR(255) NOT NULL,
+            GROUP_NAME VARCHAR(255) DEFAULT NULL,
+            PRIMARY KEY (ID)
+            )
+        </sql>
+    </changeSet>
+
+    <changeSet id="9" author="bachilo">
+        <sql>
+            ALTER TABLE T_PERSON
+            ADD COLUMN TARGET_GROUP_ID VARCHAR(255) NULL AFTER PERSON_DETAILS_ID;
+            ALTER TABLE T_PERSON
+            ADD CONSTRAINT FK_T_TARGET_GROUP_ID FOREIGN KEY (TARGET_GROUP_ID)
+            REFERENCES T_TARGET_GROUP (ID);
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>

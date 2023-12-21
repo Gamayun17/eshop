@@ -1,0 +1,16 @@
+by\it\academy\data\dao\PromoDao.class
+by\it\academy\data\pojo\ProductSpecification.class
+by\it\academy\data\dao\PersonDao.class
+by\it\academy\data\EShopDataSource.class
+by\it\academy\data\dao\ProductSpecificationDao.class
+by\it\academy\data\pojo\Person.class
+by\it\academy\data\pojo\TargetGroup.class
+by\it\academy\data\pojo\Promo.class
+by\it\academy\data\dao\PersonDaoImpl.class
+by\it\academy\data\DataConfiguration.class
+by\it\academy\data\dao\PromoDaoImpl.class
+by\it\academy\data\EShopSessionFactory.class
+by\it\academy\data\pojo\PersonDetails.class
+by\it\academy\data\model\ProductSpecificationDto.class
+by\it\academy\data\dao\ProductSpecificationDaoImpl.class
+by\it\academy\data\model\PromoDto.class
